@@ -7,7 +7,7 @@ import "./ERC721-upgradeable/ERC721AUpgradeable.sol";
 
 /** @author Diego Cortes **/
 /** @title Omniverse */
-contract CustomERC721A1 is ERC721AUpgradeable, OwnableUpgradeable {
+contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
     /**
      * @dev Initialize upgradeable storage (constructor).
      * @custom:restriction This function only can be executed one time.
@@ -52,8 +52,10 @@ contract CustomERC721A1 is ERC721AUpgradeable, OwnableUpgradeable {
         _mint(msg.sender, quantity);
 
         unchecked {
-            ERC721AStorage.layout()._preSaleCurrentIndex + quantity;
-            ERC721AStorage.layout()._tokensBoughtPreSale[msg.sender] + quantity;
+            ERC721AStorage.layout()._preSaleCurrentIndex += quantity;
+            ERC721AStorage.layout()._tokensBoughtPreSale[
+                msg.sender
+            ] += quantity;
         }
     }
 
@@ -83,9 +85,10 @@ contract CustomERC721A1 is ERC721AUpgradeable, OwnableUpgradeable {
         _mint(msg.sender, quantity);
 
         unchecked {
-            ERC721AStorage.layout()._publicSaleCurrentIndex + quantity;
-            ERC721AStorage.layout()._tokensBoughtPublicSale[msg.sender] +
-                quantity;
+            ERC721AStorage.layout()._publicSaleCurrentIndex += quantity;
+            ERC721AStorage.layout()._tokensBoughtPublicSale[
+                msg.sender
+            ] += quantity;
         }
     }
 

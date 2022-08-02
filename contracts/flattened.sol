@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: MIT
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 
 pragma solidity ^0.8.0;
@@ -23,8 +23,7 @@ library ERC721A__InitializableStorage {
         bool _initializing;
     }
 
-    bytes32 internal constant STORAGE_SLOT =
-        keccak256("ERC721A.contracts.storage.initializable.facet");
+    bytes32 internal constant STORAGE_SLOT = keccak256('ERC721A.contracts.storage.initializable.facet');
 
     function layout() internal pure returns (Layout storage l) {
         bytes32 slot = STORAGE_SLOT;
@@ -34,10 +33,13 @@ library ERC721A__InitializableStorage {
     }
 }
 
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+
+
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 pragma solidity ^0.8.0;
 
@@ -70,12 +72,10 @@ abstract contract ERC721A__Initializable {
             ERC721A__InitializableStorage.layout()._initializing
                 ? _isConstructor()
                 : !ERC721A__InitializableStorage.layout()._initialized,
-            "ERC721A__Initializable: contract is already initialized"
+            'ERC721A__Initializable: contract is already initialized'
         );
 
-        bool isTopLevelCall = !ERC721A__InitializableStorage
-            .layout()
-            ._initializing;
+        bool isTopLevelCall = !ERC721A__InitializableStorage.layout()._initializing;
         if (isTopLevelCall) {
             ERC721A__InitializableStorage.layout()._initializing = true;
             ERC721A__InitializableStorage.layout()._initialized = true;
@@ -95,7 +95,7 @@ abstract contract ERC721A__Initializable {
     modifier onlyInitializingERC721A() {
         require(
             ERC721A__InitializableStorage.layout()._initializing,
-            "ERC721A__Initializable: contract is not initializing"
+            'ERC721A__Initializable: contract is not initializing'
         );
         _;
     }
@@ -116,10 +116,13 @@ abstract contract ERC721A__Initializable {
     }
 }
 
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+
+
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 
 pragma solidity ^0.8.0;
@@ -205,10 +208,13 @@ library ERC721AStorage {
     }
 }
 
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+
+
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 // ERC721A Contracts v4.2.0
 // Creator: Chiru Labs
@@ -535,10 +541,13 @@ interface IERC721AUpgradeable {
     );
 }
 
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+
+
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 // OpenZeppelin Contracts (last updated v4.7.0) (utils/Address.sol)
 
@@ -599,16 +608,10 @@ library AddressUpgradeable {
      * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
      */
     function sendValue(address payable recipient, uint256 amount) internal {
-        require(
-            address(this).balance >= amount,
-            "Address: insufficient balance"
-        );
+        require(address(this).balance >= amount, "Address: insufficient balance");
 
         (bool success, ) = recipient.call{value: amount}("");
-        require(
-            success,
-            "Address: unable to send value, recipient may have reverted"
-        );
+        require(success, "Address: unable to send value, recipient may have reverted");
     }
 
     /**
@@ -629,10 +632,7 @@ library AddressUpgradeable {
      *
      * _Available since v3.1._
      */
-    function functionCall(address target, bytes memory data)
-        internal
-        returns (bytes memory)
-    {
+    function functionCall(address target, bytes memory data) internal returns (bytes memory) {
         return functionCall(target, data, "Address: low-level call failed");
     }
 
@@ -666,13 +666,7 @@ library AddressUpgradeable {
         bytes memory data,
         uint256 value
     ) internal returns (bytes memory) {
-        return
-            functionCallWithValue(
-                target,
-                data,
-                value,
-                "Address: low-level call with value failed"
-            );
+        return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
     }
 
     /**
@@ -687,15 +681,10 @@ library AddressUpgradeable {
         uint256 value,
         string memory errorMessage
     ) internal returns (bytes memory) {
-        require(
-            address(this).balance >= value,
-            "Address: insufficient balance for call"
-        );
+        require(address(this).balance >= value, "Address: insufficient balance for call");
         require(isContract(target), "Address: call to non-contract");
 
-        (bool success, bytes memory returndata) = target.call{value: value}(
-            data
-        );
+        (bool success, bytes memory returndata) = target.call{value: value}(data);
         return verifyCallResult(success, returndata, errorMessage);
     }
 
@@ -705,17 +694,8 @@ library AddressUpgradeable {
      *
      * _Available since v3.3._
      */
-    function functionStaticCall(address target, bytes memory data)
-        internal
-        view
-        returns (bytes memory)
-    {
-        return
-            functionStaticCall(
-                target,
-                data,
-                "Address: low-level static call failed"
-            );
+    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
+        return functionStaticCall(target, data, "Address: low-level static call failed");
     }
 
     /**
@@ -764,10 +744,13 @@ library AddressUpgradeable {
     }
 }
 
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+
+
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 // OpenZeppelin Contracts (last updated v4.7.0) (proxy/utils/Initializable.sol)
 
@@ -848,9 +831,7 @@ abstract contract Initializable {
     modifier initializer() {
         bool isTopLevelCall = !_initializing;
         require(
-            (isTopLevelCall && _initialized < 1) ||
-                (!AddressUpgradeable.isContract(address(this)) &&
-                    _initialized == 1),
+            (isTopLevelCall && _initialized < 1) || (!AddressUpgradeable.isContract(address(this)) && _initialized == 1),
             "Initializable: contract is already initialized"
         );
         _initialized = 1;
@@ -877,10 +858,7 @@ abstract contract Initializable {
      * a contract, executing them in the right order is up to the developer or operator.
      */
     modifier reinitializer(uint8 version) {
-        require(
-            !_initializing && _initialized < version,
-            "Initializable: contract is already initialized"
-        );
+        require(!_initializing && _initialized < version, "Initializable: contract is already initialized");
         _initialized = version;
         _initializing = true;
         _;
@@ -912,15 +890,17 @@ abstract contract Initializable {
     }
 }
 
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+
+
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 // OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
 
 pragma solidity ^0.8.0;
-
 ////import "../proxy/utils/Initializable.sol";
 
 /**
@@ -934,10 +914,11 @@ pragma solidity ^0.8.0;
  * This contract is only required for intermediate, library-like contracts.
  */
 abstract contract ContextUpgradeable is Initializable {
-    function __Context_init() internal onlyInitializing {}
+    function __Context_init() internal onlyInitializing {
+    }
 
-    function __Context_init_unchained() internal onlyInitializing {}
-
+    function __Context_init_unchained() internal onlyInitializing {
+    }
     function _msgSender() internal view virtual returns (address) {
         return msg.sender;
     }
@@ -954,10 +935,13 @@ abstract contract ContextUpgradeable is Initializable {
     uint256[50] private __gap;
 }
 
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+
+
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 // ERC721A Contracts v4.2.0
 // Creator: Chiru Labs
@@ -2218,10 +2202,13 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
     }
 }
 
-/**
- *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
 
+
+
+/** 
+ *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
+*/
+            
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: MIT
 // OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
 
@@ -2245,10 +2232,7 @@ pragma solidity ^0.8.0;
 abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     address private _owner;
 
-    event OwnershipTransferred(
-        address indexed previousOwner,
-        address indexed newOwner
-    );
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
@@ -2299,10 +2283,7 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
      * Can only be called by the current owner.
      */
     function transferOwnership(address newOwner) public virtual onlyOwner {
-        require(
-            newOwner != address(0),
-            "Ownable: new owner is the zero address"
-        );
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
         _transferOwnership(newOwner);
     }
 
@@ -2324,9 +2305,10 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     uint256[49] private __gap;
 }
 
-/**
+
+/** 
  *  SourceUnit: /home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol
- */
+*/
 
 ////// SPDX-License-Identifier-FLATTEN-SUPPRESS-WARNING: Mit
 
@@ -2382,8 +2364,10 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
         _mint(msg.sender, quantity);
 
         unchecked {
-            ERC721AStorage.layout()._preSaleCurrentIndex + quantity;
-            ERC721AStorage.layout()._tokensBoughtPreSale[msg.sender] + quantity;
+            ERC721AStorage.layout()._preSaleCurrentIndex += quantity;
+            ERC721AStorage.layout()._tokensBoughtPreSale[
+                msg.sender
+            ] += quantity;
         }
     }
 
@@ -2413,9 +2397,10 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
         _mint(msg.sender, quantity);
 
         unchecked {
-            ERC721AStorage.layout()._publicSaleCurrentIndex + quantity;
-            ERC721AStorage.layout()._tokensBoughtPublicSale[msg.sender] +
-                quantity;
+            ERC721AStorage.layout()._publicSaleCurrentIndex += quantity;
+            ERC721AStorage.layout()._tokensBoughtPublicSale[
+                msg.sender
+            ] += quantity;
         }
     }
 
@@ -2517,3 +2502,4 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
         require(sent, "Failed to send Ether");
     }
 }
+

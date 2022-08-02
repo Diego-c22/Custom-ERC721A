@@ -807,8 +807,8 @@
       ]
     },
     "/home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol": {
-      "lastModificationDate": 1659405366299,
-      "contentHash": "9f36eaca533bb0f921fceb24d799faca",
+      "lastModificationDate": 1659408950249,
+      "contentHash": "2cf3e50f92738831cddc68921289eb13",
       "sourceName": "contracts/CustomERC721A.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -841,7 +841,7 @@
         "^0.8.4"
       ],
       "artifacts": [
-        "CustomERC721A1"
+        "CustomERC721A"
       ]
     },
     "/home/diego_22/projects/work/Custom-ERC721A/contracts/flattened.sol": {
