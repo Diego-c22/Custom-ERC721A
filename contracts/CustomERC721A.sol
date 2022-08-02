@@ -7,7 +7,7 @@ import "./ERC721-upgradeable/ERC721AUpgradeable.sol";
 
 /** @author Diego Cortes **/
 /** @title Omniverse */
-contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
+contract CustomERC721A1 is ERC721AUpgradeable, OwnableUpgradeable {
     /**
      * @dev Initialize upgradeable storage (constructor).
      * @custom:restriction This function only can be executed one time.

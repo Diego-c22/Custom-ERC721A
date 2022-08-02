@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const Omniverse = await hre.ethers.getContractFactory("Omniverse");
+  const Omniverse = await hre.ethers.getContractFactory("CustomERC721A");
   const omniverse = await Omniverse.deploy();
 
   await omniverse.deployed();
@@ -19,7 +19,6 @@ async function main() {
   console.log('here')
   // await omniverse.freeMint(50);
   // const token = await omniverse.tokenURI(3);
-  console.log(token)
   console.log('ready')
 }
 
