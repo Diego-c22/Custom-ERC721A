@@ -9,15 +9,10 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const Omniverse = await hre.ethers.getContractFactory("CustomERC721A1");
-  const omniverse = await Omniverse.deploy();
-
-  await omniverse.deployed();
+  const omniverse = (await hre.ethers.getContractFactory("CustomERC721A1")).attach('0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e');
 
   console.log("Omniverse with 1 ETH deployed to:", omniverse.address);
 
-  await omniverse.initialize();
-  await omniverse.activePreSale(true);
   const quantity = ethers.utils.parseEther('0.15')
   await omniverse.preSaleMint(5, {value: quantity});
 
