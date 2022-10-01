@@ -54,6 +54,8 @@ library ERC721AStorage {
         uint256 _amountForPreSale;
         // Maximum number of ntfs that can be minted in public sale.
         uint256 _amountForPublicSale;
+        // Maximum number of ntfs that can be minted in free.
+        uint256 _amountForFreeSale;
         // Price by nft in public sale.
         uint256 _pricePublicSale;
         // Price by nft in presale.
@@ -62,12 +64,19 @@ library ERC721AStorage {
         uint256 _preSaleCurrentIndex;
         // Items sold in  public sale
         uint256 _publicSaleCurrentIndex;
+        uint256 _freeSaleCurrentIndex;
         // Determine if public sale is active
         bool _publicSaleActive;
         // Determine if pre-sale is active
         bool _preSaleActive;
+        // false if base uri is hidden
+        bool _reveled;
         // Save base URI
         string _baseUri;
+        // Save hidden base URI
+        string _hiddenBaseUri;
+        // Sabe sufix base uri
+        string _uriSuffix;
         mapping(address => uint) _tokensBoughtPreSale;
         mapping(address => uint) _tokensBoughtPublicSale;
     }

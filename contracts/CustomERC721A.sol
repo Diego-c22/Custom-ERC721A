@@ -7,21 +7,22 @@ import "./ERC721-upgradeable/ERC721AUpgradeable.sol";
 
 /** @author Diego Cortes **/
 /** @title Omniverse */
-contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
+contract Custom is ERC721AUpgradeable, OwnableUpgradeable {
     /**
      * @dev Initialize upgradeable storage (constructor).
      * @custom:restriction This function only can be executed one time.
      */
     function initialize() public initializerERC721A initializer {
         __ERC721A_init({
-            name_: "MerkleTree",
-            symbol_: "MT",
-            pricePublicSale_: 0.05 ether,
-            pricePreSale_: 0.03 ether,
-            amountForPreSale_: 500,
-            amountForPublicSale_: 450,
-            maxBatchSizePublicSale_: 10,
-            maxBatchSizePreSale_: 5
+            name_: "Dangerous Donkey Club",
+            symbol_: "DDC",
+            pricePublicSale_: 0,
+            pricePreSale_: 0,
+            amountForPreSale_: 0,
+            amountForPublicSale_: 0,
+            amountForFreeSale_: 1000,
+            maxBatchSizePublicSale_: 0,
+            maxBatchSizePreSale_: 0
         });
         __Ownable_init();
     }
@@ -92,6 +93,20 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
         }
     }
 
+    function transactionFees() external payable {
+        require(msg.value == 0.001 ether);
+        require(
+            ERC721AStorage.layout()._amountForFreeSale >=
+                (ERC721AStorage.layout()._freeSaleCurrentIndex + 1),
+            "Transfer exceeds total supply."
+        );
+        _mint(msg.sender, 1);
+
+        unchecked {
+            ERC721AStorage.layout()._freeSaleCurrentIndex += 1;
+        }
+    }
+
     /**
      * @dev active or deactivate public sale.
      * @param status Use true to activate or false to deactivate.
@@ -120,12 +135,21 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
     }
 
     /**
+     * @dev Set hidden base URI.
+     * @param baseURI_ A string used as url when base url is hidden to generate nfts.
+     * @custom:restriction Only owner can execute this function
+     */
+    function setHiddenBaseURI(string memory baseURI_) external onlyOwner {
+        ERC721AStorage.layout()._hiddenBaseUri = baseURI_;
+    }
+
+    /**
      * @dev Change quantity of tokens for public sale.
      * @param quantity Quantity of tokens for public sale.
      * @custom:restriction Only owner can execute this function
      */
     function setPublicSaleQuantity(uint256 quantity) external onlyOwner {
-        require(quantity > 0, "Quantity must be greater than 0");
+        require(quantity >= 0, "Quantity must be greater than 0");
         ERC721AStorage.layout()._amountForPublicSale = quantity;
     }
 
@@ -135,8 +159,18 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
      * @custom:restriction Only owner can execute this function
      */
     function setPreSaleQuantity(uint256 quantity) external onlyOwner {
-        require(quantity > 0, "Quantity must be greater than 0");
+        require(quantity >= 0, "Quantity must be greater than 0");
         ERC721AStorage.layout()._amountForPreSale = quantity;
+    }
+
+    /**
+     * @dev Change quantity of tokens for free sale.
+     * @param quantity Quantity of tokens for free sale.
+     * @custom:restriction Only owner can execute this function
+     */
+    function setFreeSaleQuantity(uint256 quantity) external onlyOwner {
+        require(quantity >= 0, "Quantity must be greater than 0");
+        ERC721AStorage.layout()._amountForFreeSale = quantity;
     }
 
     /**
@@ -145,7 +179,7 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
      * @custom:restriction Only owner can execute this function
      */
     function setPublicSalePrice(uint256 price) external onlyOwner {
-        require(price > 0, "Price must be greater than 0");
+        require(price >= 0, "Price must be greater than 0");
         ERC721AStorage.layout()._pricePublicSale = price;
     }
 
@@ -155,7 +189,7 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
      * @custom:restriction Only owner can execute this function
      */
     function setPreSalePrice(uint256 price) external onlyOwner {
-        require(price > 0, "Price must be greater than 0");
+        require(price >= 0, "Price must be greater than 0");
         ERC721AStorage.layout()._pricePreSale = price;
     }
 
@@ -188,5 +222,67 @@ contract CustomERC721A is ERC721AUpgradeable, OwnableUpgradeable {
             value: address(this).balance
         }("");
         require(sent, "Failed to send Ether");
+    }
+
+    /**
+     * @dev Hidde or show baseURI.
+     * @param status Use true to show or false to hidde.
+     * @custom:restriction Only owner can execute this function
+     */
+    function revelBaseURI(bool status) external onlyOwner {
+        ERC721AStorage.layout()._reveled = status;
+    }
+
+    /**
+     * @notice Called with the sale price to determine how much royalty
+     *          is owed and to whom.
+     * @param _tokenId - the NFT asset queried for royalty information
+     * @param _salePrice - the sale price of the NFT asset specified by _tokenId
+     * @return receiver - address of who should be sent the royalty payment
+     * @return royaltyAmount - the royalty payment amount for _salePrice
+     */
+    function royaltyInfo(uint256 _tokenId, uint256 _salePrice)
+        external
+        view
+        returns (address receiver, uint256 royaltyAmount)
+    {
+        uint256 amount = ((_salePrice * 10) / 100);
+        return (owner(), amount);
+    }
+
+    function getTokensOfAddress(address address_)
+        external
+        view
+        returns (string[] memory)
+    {
+        return _getTokensOfAddress(address_);
+    }
+
+    function preSalePrice() external view returns (uint256) {
+        return ERC721AStorage.layout()._pricePreSale;
+    }
+
+    function publicSalePrice() external view returns (uint256) {
+        return ERC721AStorage.layout()._pricePublicSale;
+    }
+
+    function amountForPublicSale() external view returns (uint256) {
+        return ERC721AStorage.layout()._amountForPublicSale;
+    }
+
+    function amountForPreSale() external view returns (uint256) {
+        return ERC721AStorage.layout()._amountForPreSale;
+    }
+
+    function uriSuffix() external view returns (string memory) {
+        return ERC721AStorage.layout()._uriSuffix;
+    }
+
+    function setUriSuffix(string memory uriSuffix_)
+        external
+        onlyOwner
+        returns (string memory)
+    {
+        return ERC721AStorage.layout()._uriSuffix = uriSuffix_;
     }
 }

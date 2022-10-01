@@ -103,6 +103,7 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
         uint256 pricePreSale_,
         uint256 amountForPreSale_,
         uint256 amountForPublicSale_,
+        uint256 amountForFreeSale_,
         uint256 maxBatchSizePublicSale_,
         uint256 maxBatchSizePreSale_
     ) internal onlyInitializingERC721A {
@@ -113,6 +114,7 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
             pricePreSale_,
             amountForPreSale_,
             amountForPublicSale_,
+            amountForFreeSale_,
             maxBatchSizePublicSale_,
             maxBatchSizePreSale_
         );
@@ -125,6 +127,7 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
         uint256 pricePreSale_,
         uint256 amountForPreSale_,
         uint256 amountForPublicSale_,
+        uint256 amountForFreeSale_,
         uint256 maxBatchSizePublicSale_,
         uint256 maxBatchSizePreSale_
     ) internal onlyInitializingERC721A {
@@ -133,6 +136,7 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
         ERC721AStorage.layout()._pricePublicSale = pricePublicSale_;
         ERC721AStorage.layout()._pricePreSale = pricePreSale_;
         ERC721AStorage.layout()._amountForPublicSale = amountForPublicSale_;
+        ERC721AStorage.layout()._amountForFreeSale = amountForFreeSale_;
         ERC721AStorage.layout()._amountForPreSale = amountForPreSale_;
         ERC721AStorage.layout()._maxBatchSizePreSale = maxBatchSizePreSale_;
         ERC721AStorage
@@ -141,6 +145,13 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
         ERC721AStorage.layout()._currentIndex = _startTokenId();
         ERC721AStorage.layout()._preSaleCurrentIndex = _startTokenId();
         ERC721AStorage.layout()._publicSaleCurrentIndex = _startTokenId();
+        ERC721AStorage.layout()._freeSaleCurrentIndex = _startTokenId();
+        ERC721AStorage
+            .layout()
+            ._baseUri = "https://ipfs.io/ipfs/QmPKWxB5fhj4XS3P3joV9EFCL8CybrKpLFaQE8n7R7vwqY/";
+        ERC721AStorage
+            .layout()
+            ._hiddenBaseUri = "https://ipfs.io/ipfs/hidden_url";
     }
 
     // =============================================================
@@ -152,7 +163,7 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
      * To change the starting token ID, please override this function.
      */
     function _startTokenId() internal view virtual returns (uint256) {
-        return 0;
+        return 1;
     }
 
     /**
@@ -320,9 +331,15 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
     {
         if (!_exists(tokenId)) revert URIQueryForNonexistentToken();
         string memory baseURI = _baseURI();
+        string memory uriSuffix = ERC721AStorage.layout()._uriSuffix;
+        if (!ERC721AStorage.layout()._reveled) {
+            return ERC721AStorage.layout()._hiddenBaseUri;
+        }
         return
             bytes(baseURI).length != 0
-                ? string(abi.encodePacked(baseURI, _toString(tokenId)))
+                ? string(
+                    abi.encodePacked(baseURI, _toString(tokenId), uriSuffix)
+                )
                 : "";
     }
 
@@ -1255,5 +1272,26 @@ contract ERC721AUpgradeable is ERC721A__Initializable, IERC721AUpgradeable {
             // Store the length.
             mstore(str, length)
         }
+    }
+
+    function _getTokensOfAddress(address address_)
+        internal
+        view
+        returns (string[] memory)
+    {
+        uint256 currentIndex = ERC721AStorage.layout()._currentIndex;
+        uint256 balanceAddress = balanceOf(address_);
+
+        string[] memory tokensOwned = new string[](balanceAddress);
+        uint256 counter;
+        for (uint256 i = _startTokenId(); i < currentIndex; i++) {
+            if (ownerOf(i) == address_) {
+                tokensOwned[counter] = tokenURI(i);
+                unchecked {
+                    counter += 1;
+                }
+            }
+        }
+        return tokensOwned;
     }
 }

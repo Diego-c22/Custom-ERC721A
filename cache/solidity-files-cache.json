@@ -150,8 +150,8 @@
       ]
     },
     "/home/diego_22/projects/work/Custom-ERC721A/contracts/ERC721-upgradeable/ERC721AUpgradeable.sol": {
-      "lastModificationDate": 1659401858909,
-      "contentHash": "668f34cbea5c162fceec23593b0a757b",
+      "lastModificationDate": 1659668533923,
+      "contentHash": "fb718314152f33b455c8b3226ccbd7e6",
       "sourceName": "contracts/ERC721-upgradeable/ERC721AUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -225,8 +225,8 @@
       ]
     },
     "/home/diego_22/projects/work/Custom-ERC721A/contracts/ERC721-upgradeable/ERC721AStorage.sol": {
-      "lastModificationDate": 1659403298129,
-      "contentHash": "99df05700f0795d9bbe6379560f48ab2",
+      "lastModificationDate": 1659668397573,
+      "contentHash": "92c02812357013d2cf52c25799e9cfcb",
       "sourceName": "contracts/ERC721-upgradeable/ERC721AStorage.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -806,47 +806,9 @@
         "console"
       ]
     },
-    "/home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol": {
-      "lastModificationDate": 1659408950249,
-      "contentHash": "2cf3e50f92738831cddc68921289eb13",
-      "sourceName": "contracts/CustomERC721A.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
-        "./ERC721-upgradeable/ERC721AUpgradeable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.4"
-      ],
-      "artifacts": [
-        "CustomERC721A"
-      ]
-    },
     "/home/diego_22/projects/work/Custom-ERC721A/contracts/flattened.sol": {
-      "lastModificationDate": 1659404742119,
-      "contentHash": "d236648d09b69a5a18b962a3e0cb8da3",
+      "lastModificationDate": 1659408984739,
+      "contentHash": "c0281d3afc3afaa3e00df586bf6b2150",
       "sourceName": "contracts/flattened.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -896,6 +858,44 @@
         "IERC721AUpgradeable",
         "Initializable",
         "OwnableUpgradeable"
+      ]
+    },
+    "/home/diego_22/projects/work/Custom-ERC721A/contracts/CustomERC721A.sol": {
+      "lastModificationDate": 1661488171266,
+      "contentHash": "5a3c7af00be4c520435eca6e459a92cf",
+      "sourceName": "contracts/CustomERC721A.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "./ERC721-upgradeable/ERC721AUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Custom"
       ]
     }
   }
